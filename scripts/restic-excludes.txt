@@ -1,0 +1,12 @@
+# Restic excludes — Madre
+# Migrado desde raíz — 2026-07-05
+/proc
+/sys
+/dev
+/run
+/tmp
+/var/tmp
+/lost+found
+/home/varopc/.cache
+/home/varopc/.local/share/Trash
+/var/lib/docker

@@ -1,110 +1,58 @@
 ---
-tipo: agent-context
+tipo: canon
 author: Alvaro Fernandez Mota
 creado: 2026-07-16
 actualizado: 2026-07-16
-repo: madre-config
-ecosistema: yggdrasil
+ruta: AGENT.md
+tags: [agente, canon, madre, infra]
 status: vigente
 ---
 
-# 🏗️ AGENT.md — madre-config
+# AGENT.md — madre-config
 
-> Punto de entrada obligatorio para cualquier agente IA que trabaje en este repo.
-> Leer este fichero completo antes de ejecutar cualquier acción.
-> **Precaución máxima: cambios aquí afectan producción directamente.**
+## Identidad del repo
 
----
+`madre-config` es el repo de configuracion y hardening de la maquina Madre (servidor principal del ecosistema Yggdrasil). Contiene scripts de setup, configuracion de docker compose global, hardening SSH, y documentacion de la infraestructura fisica.
 
-## ¿Qué es este repo?
+## Proposito
 
-**madre-config** contiene toda la configuración de infraestructura del servidor Madre — el nodo central del ecosistema Yggdrasil. Incluye:
+- Configuracion reproducible de la Madre
+- Scripts de hardening y seguridad
+- Docker compose de servicios core
+- Documentacion de hardware y red
 
-- **Ansible** — playbooks de provisionamiento y configuración
-- **systemd** — servicios del sistema
-- **scripts** — scripts de mantenimiento y operaciones
-- **docs** — documentación de infra
+## Reglas canon para agentes
 
-**Rol en ecosistema:** Infra física que sostiene TODO el ecosistema. Si Madre cae, cae todo.
+1. **Fuente de verdad de infra:** Todo cambio en la Madre debe documentarse aqui
+2. **Nunca secrets en repo:** Ningun token, password o clave en ningun archivo
+3. **Scripts idempotentes:** Todos los scripts deben poder ejecutarse multiples veces sin efecto secundario
+4. **Commits con contexto:** Formato `tipo(scope): descripcion — razon del cambio`
+5. **Issues primero:** Toda tarea tiene su issue en `yggdrasil-dew` antes de ejecutarse
 
-- **Wiki isla:** [madre.md](https://github.com/alvarofernandezmota-tech/yggdrasil-wiki/blob/main/wiki/islas/madre.md) · [infra.md](https://github.com/alvarofernandezmota-tech/yggdrasil-wiki/blob/main/wiki/islas/infra.md)
+## Relacion con el ecosistema
 
----
+- **Fuente de verdad de protocolos:** `yggdrasil-dew/docs/canon/`
+- **Wiki de referencia:** `yggdrasil-wiki/wiki/islas/madre.md`
+- **Issues y tracking:** `yggdrasil-dew` (GitHub Issues)
+- **Infra relacionada:** `ollama-stack`, `yggdrasil-secops`
 
-## Estado actual (2026-07-16)
+## Archivos clave
 
-| Componente | Estado | Notas |
-|---|---|---|
-| Servidor Madre (HP EliteDesk) | 🟢 Running | Host principal |
-| Docker Engine | 🟢 Running | Todos los contenedores |
-| n8n | 🟡 Running | Sin auditar flujos |
-| Ollama + Qdrant | 🟢 Running | Stack IA local |
-| Wazuh SIEM | 🟢 Running | Alertas activas |
-| Suricata IDS | 🟢 Running | Monitorizando |
-| FTP anónimo | 🚨 ALERTA P0 | Detectado — cerrar urgente |
-| thdora-bot/api | 🔴 Caído | HAL-007 en THDORA-PERSONAL |
-
-**Alerta activa:**
-- 🚨 **FTP anónimo** expuesto — riesgo de seguridad → [DEW #46](https://github.com/alvarofernandezmota-tech/yggdrasil-dew/issues/46)
-
----
-
-## Estructura del repo
-
-```
-madre-config/
-├── AGENT.md           ← Este fichero (leer primero)
-├── CONTEXT.md         ← Estado actual de infra
-├── README.md          ← Overview del repo
-├── ansible/           ← Playbooks de provisionamiento
-├── systemd/           ← Servicios systemd
-├── scripts/           ← Scripts de mantenimiento
-└── docs/
-    └── sesiones/      ← Logs de sesión de trabajo IA
-```
-
----
-
-## Protocolo de inicio de sesión
-
-1. ✅ Leer `AGENT.md` (este fichero)
-2. ✅ Leer `CONTEXT.md` — estado actual de la infra
-3. ✅ Verificar alertas activas (FTP, HALs)
-4. ✅ Revisar issues en [yggdrasil-dew](https://github.com/alvarofernandezmota-tech/yggdrasil-dew/issues) con label `infra` o `madre`
-5. ⚠️ **NUNCA ejecutar cambios en producción sin verificar estado actual primero**
-
----
-
-## Protocolo de cierre de sesión
-
-1. ✅ Actualizar `CONTEXT.md` con cambios realizados
-2. ✅ Crear log en `docs/sesiones/YYYY-MM-DD.md`
-3. ✅ Crear issue en `yggdrasil-dew` para trabajo pendiente
-4. ✅ Si se modificó algo en producción: documentar exactamente qué y cómo revertir
-5. ✅ Actualizar isla `madre.md` o `infra.md` en wiki si cambió algo estructural
-
----
-
-## Ficheros CRÍTICOS — máxima precaución
-
-| Fichero/Dir | Precaución |
+| Archivo | Proposito |
 |---|---|
-| `ansible/` | Cambios aquí se aplican a producción vía playbook |
-| `systemd/` | Cambios en servicios del sistema — pueden tumbar servicios |
-| `scripts/` | Verificar siempre en entorno de prueba antes de ejecutar |
+| `AGENT.md` | Este archivo — identidad del repo |
+| `CONTEXT.md` | Estado actual del repo |
+| `README.md` | Introduccion publica |
+| `docker-compose.yml` | Servicios core de la Madre |
+| `scripts/` | Scripts de setup y hardening |
+
+## Protocolo de inicio de sesion
+
+1. Leer este `AGENT.md`
+2. Leer `CONTEXT.md` para conocer estado actual
+3. Consultar `yggdrasil-dew/docs/canon/PROTOCOLO-INICIO-SESION.md`
+4. Revisar issues abiertas en `yggdrasil-dew` etiquetadas `madre`
 
 ---
 
-## Links rápidos
-
-| Recurso | URL |
-|---|---|
-| Wiki isla madre | [madre.md](https://github.com/alvarofernandezmota-tech/yggdrasil-wiki/blob/main/wiki/islas/madre.md) |
-| Wiki isla infra | [infra.md](https://github.com/alvarofernandezmota-tech/yggdrasil-wiki/blob/main/wiki/islas/infra.md) |
-| Issues activos (DEW) | [yggdrasil-dew/issues](https://github.com/alvarofernandezmota-tech/yggdrasil-dew/issues) |
-| Alerta FTP | [DEW #46](https://github.com/alvarofernandezmota-tech/yggdrasil-dew/issues/46) |
-| Protocolos | [yggdrasil-dew/protocolo/](https://github.com/alvarofernandezmota-tech/yggdrasil-dew/tree/main/protocolo) |
-
----
-
-_Creado: 2026-07-16 · Perplexity-MCP · Ecosistema Yggdrasil_
+_Creado: 2026-07-16 — F21 — Perplexity MCP_

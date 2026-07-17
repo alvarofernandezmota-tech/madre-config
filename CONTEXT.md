@@ -1,57 +1,37 @@
 ---
-tipo: contexto
-author: Alvaro Fernandez Mota
-creado: 2026-07-16
-actualizado: 2026-07-16
-ruta: CONTEXT.md
-tags: [contexto, madre, infra, estado]
-status: vigente
+actualizado: 2026-07-18
 ---
 
-# CONTEXT.md — madre-config
+# CONTEXT — madre-config
 
-> Actualizar al inicio y cierre de cada sesion de trabajo.
+## Estado actual de Madre
 
-## Estado actual (2026-07-16)
+- **OS**: Arch Linux
+- **SSH**: `varopc@100.91.112.32` (via Tailscale)
+- **Contenedores Docker**: ~23 activos
+- **Última actividad en repo**: 2026-07-16
 
-| Dimension | Estado | Notas |
-|---|---|---|
-| Repo | Activo | Configuracion base presente |
-| AGENT.md | yes 2026-07-16 | Creado F21 |
-| CI/CD | sin verificar | Pendiente workflow validate-canon |
-| Docker compose | sin verificar | Revisar en terminal |
-| Scripts hardening | sin verificar | Revisar en terminal |
+## Issues críticos activos
 
-## Hardware Madre
+- [#74 DEW] THDORA token Telegram caducado 🔴 — renovar en BotFather
+- [#75 DEW] yggdrasil-mcp no arranca (puerto 3000/3001) 🔴
+- [#71 DEW] Qdrant unhealthy (falso positivo telemetría) 🟡
+- [#46 DEW] log_guardian_bot crash loop
+- [#15 DEW] Puerto 21 FTP expuesto en router Digi 🔴
 
-- **CPU:** AMD Ryzen (ver isla madre.md)
-- **RAM:** ver isla madre.md
-- **HDD:** 28.000h — SMART PASSED — monitorizar (issue #31)
-- **OS:** Proxmox / Debian
-- **Red:** IP local fija — puerto 21 FTP es router Digi (issue #15)
+## Pendientes del repo
 
-## Servicios core activos (verificar en terminal)
+- [ ] Documentar hardware real con `dmidecode` (F20 en DEW)
+- [ ] Verificar que docker-compose files están en este repo
+- [ ] Revisar 3 issues abiertos del repo
+- [ ] Completar AGENT.md con rutas reales una vez revisadas
 
-- Docker daemon
-- Portainer
-- Nginx reverse proxy
-- Ver `docker ps` para estado real
+## Hardware conocido
 
-## Issues abiertas relacionadas
+- CPU/placa: pendiente documentar con `dmidecode` (issue F20)
+- RAM: desconocida — pendiente
+- Disco: desconocido — pendiente `df -h` + `smartctl`
 
-| Issue | Titulo | Prioridad |
-|---|---|---|
-| [#31](https://github.com/alvarofernandezmota-tech/yggdrasil-dew/issues/31) | HDD 28.000h SMART | Media |
-| [#15](https://github.com/alvarofernandezmota-tech/yggdrasil-dew/issues/15) | Puerto 21 FTP | Media |
-| [#60](https://github.com/alvarofernandezmota-tech/yggdrasil-dew/issues/60) | Healthchecks docker | Baja |
+## Última sesión
 
-## Proximos pasos
-
-- [ ] Verificar estado docker compose en terminal
-- [ ] Añadir workflow CI validate-canon
-- [ ] Documentar scripts existentes
-- [ ] Resolver issue #31 (leer SMART)
-
----
-
-_Actualizado: 2026-07-16 — F21 — Perplexity MCP_
+2026-07-17/18 — auditoría MCP, protocolos creados, scripts bash

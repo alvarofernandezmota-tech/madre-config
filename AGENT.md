@@ -1,58 +1,58 @@
 ---
-tipo: canon
-author: Alvaro Fernandez Mota
-creado: 2026-07-16
-actualizado: 2026-07-16
-ruta: AGENT.md
-tags: [agente, canon, madre, infra]
-status: vigente
+rol: agente de configuración del servidor Madre
+repo: madre-config
+ecosistema: yggdrasil
+actualizado: 2026-07-18
 ---
 
-# AGENT.md — madre-config
+# AGENT — madre-config
 
-## Identidad del repo
+## Identidad
 
-`madre-config` es el repo de configuracion y hardening de la maquina Madre (servidor principal del ecosistema Yggdrasil). Contiene scripts de setup, configuracion de docker compose global, hardening SSH, y documentacion de la infraestructura fisica.
+Repo de configuración e infraestructura del servidor Madre (HP, Arch Linux). Contiene docker-compose, configs de servicios, scripts de arranque y documentación de la máquina física.
 
-## Proposito
+## Infraestructura real
 
-- Configuracion reproducible de la Madre
-- Scripts de hardening y seguridad
-- Docker compose de servicios core
-- Documentacion de hardware y red
+- **Madre**: Arch Linux, SSH `varopc@100.91.112.32` (Tailscale)
+- **23 contenedores Docker** activos
+- **Tailscale** para acceso remoto seguro
+- **Acer**: `100.86.119.102` (workstation secundaria)
 
-## Reglas canon para agentes
+## Reglas
 
-1. **Fuente de verdad de infra:** Todo cambio en la Madre debe documentarse aqui
-2. **Nunca secrets en repo:** Ningun token, password o clave en ningun archivo
-3. **Scripts idempotentes:** Todos los scripts deben poder ejecutarse multiples veces sin efecto secundario
-4. **Commits con contexto:** Formato `tipo(scope): descripcion — razon del cambio`
-5. **Issues primero:** Toda tarea tiene su issue en `yggdrasil-dew` antes de ejecutarse
+- Leer CONTEXT.md antes de actuar
+- NUNCA commitear `.env` reales, tokens ni secretos
+- Cambios de infraestructura crítica requieren aprobación explícita de Álvaro
+- Documentar siempre los cambios en CONTEXT.md + issue en DEW si procede
+- DEW manda en conflictos de canon
+- Issues críticos se abren en yggdrasil-dew, no aquí
 
-## Relacion con el ecosistema
+## Repos relacionados
 
-- **Fuente de verdad de protocolos:** `yggdrasil-dew/docs/canon/`
-- **Wiki de referencia:** `yggdrasil-wiki/wiki/islas/madre.md`
-- **Issues y tracking:** `yggdrasil-dew` (GitHub Issues)
-- **Infra relacionada:** `ollama-stack`, `yggdrasil-secops`
+- `yggdrasil-dew` — canon, plan maestro, issues
+- `yggdrasil-secops` — seguridad de Madre
+- `ollama-stack` — stack IA en Madre
+- `THDORA-PERSONAL` — bot Telegram corriendo en Madre
+- `yggdrasil-scripts` — scripts de mantenimiento
+- `acer-config` — workstation complementaria
 
-## Archivos clave
+## Servicios críticos en Madre
 
-| Archivo | Proposito |
-|---|---|
-| `AGENT.md` | Este archivo — identidad del repo |
-| `CONTEXT.md` | Estado actual del repo |
-| `README.md` | Introduccion publica |
-| `docker-compose.yml` | Servicios core de la Madre |
-| `scripts/` | Scripts de setup y hardening |
+| Servicio | Puerto | Estado esperado |
+|---|---|---|
+| Portainer | 9000 | Up |
+| Ollama | 11434 | Up |
+| Open WebUI | 8080 | Up |
+| Qdrant | 6333 | Up |
+| n8n | 5678 | Up |
+| Vaultwarden | 8000 | Up |
+| Pi-hole | 80 | Up |
+| THDORA | — | Up (token #74) |
+| yggdrasil-mcp | 3001 | CAIDO (#75) |
+| Grafana | 3000 | Up |
 
-## Protocolo de inicio de sesion
+## Rutas clave
 
-1. Leer este `AGENT.md`
-2. Leer `CONTEXT.md` para conocer estado actual
-3. Consultar `yggdrasil-dew/docs/canon/PROTOCOLO-INICIO-SESION.md`
-4. Revisar issues abiertas en `yggdrasil-dew` etiquetadas `madre`
-
----
-
-_Creado: 2026-07-16 — F21 — Perplexity MCP_
+- `docker/` — docker-compose por servicio
+- `configs/` — configuraciones de servicios
+- `CONTEXT.md` — estado actual de Madre

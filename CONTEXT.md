@@ -6,9 +6,10 @@ actualizado: 2026-07-18
 
 ## Estado actual de Madre
 
-- **OS**: Arch Linux
-- **SSH**: `varopc@100.91.112.32` (via Tailscale)
-- **Contenedores Docker**: ~23 activos
+- **OS**: Ubuntu Server (LUKS + Btrfs)
+- **SSH**: `varopc@100.91.112.32` (Tailscale) — solo clave pública
+- **GPU**: GTX 1060 para Ollama
+- **Contenedores Docker**: 16 documentados en README (puede haber más)
 - **Última actividad en repo**: 2026-07-16
 
 ## Issues críticos activos
@@ -22,16 +23,16 @@ actualizado: 2026-07-18
 ## Pendientes del repo
 
 - [ ] Documentar hardware real con `dmidecode` (F20 en DEW)
-- [ ] Verificar que docker-compose files están en este repo
+- [ ] Verificar `docs/estado-actual.md` y actualizarlo
 - [ ] Revisar 3 issues abiertos del repo
-- [ ] Completar AGENT.md con rutas reales una vez revisadas
 
-## Hardware conocido
+## Hardware pendiente de documentar
 
-- CPU/placa: pendiente documentar con `dmidecode` (issue F20)
-- RAM: desconocida — pendiente
-- Disco: desconocido — pendiente `df -h` + `smartctl`
+- CPU/placa: ejecutar `sudo dmidecode -t processor` y `dmidecode -t baseboard`
+- RAM: `sudo dmidecode -t memory`
+- Disco: `df -h` + `sudo smartctl -a /dev/sda`
 
 ## Última sesión
 
-2026-07-17/18 — auditoría MCP, protocolos creados, scripts bash
+2026-07-16 — actividad en repo
+2026-07-18 — AGENT.md + CONTEXT.md reescritos con datos reales (auditoría MCP)
